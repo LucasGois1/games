@@ -3,9 +3,14 @@ import axios from 'axios'
 const localHost = 'http://localhost:5000'
 
 
-const getAllGames = async() => {
-    const response = await axios(`${localHost}/games`)
-    return response.data
+const getAllGames = async(token) => {
+    const response = await axios(`${localHost}/games`, {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    })
+    console.log(response.data)
+    return response.data.games
         // },
         // getOneGame: (id) => {
         //     const response = axios(`${localHost}/${id}`)

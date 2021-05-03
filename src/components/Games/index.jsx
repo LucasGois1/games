@@ -1,11 +1,14 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import getAllGames from '../../api/getAllGames'
+import { UserContext } from '../User/Storage'
 import { useEffect, useState } from 'react';
+
 const Games = () => {
     const [games, setGames] = useState([])
+    const { user } = useContext(UserContext)
     useEffect(() => {
         async function fetchData() {
-            const response = await getAllGames()
+            const response = await getAllGames(user.token)
             setGames(response)
         }
         fetchData()
@@ -13,7 +16,7 @@ const Games = () => {
     return (
         <>
             <div>
-                <h1>Olá</h1>
+                <h1>Olá {user.name}!</h1>
                 {games.length > 0 ?
                     <div>
                         {games.map((game) => {
